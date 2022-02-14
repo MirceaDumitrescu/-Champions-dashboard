@@ -1,3 +1,4 @@
+import React from "react";
 import ReactPaginate from "react-paginate";
 import { useSelector } from "react-redux";
 import fetchApi from "../../features/champions/api/fetchApi";
@@ -6,18 +7,28 @@ import { useEffect } from "react";
 import FetchButton from "../../components/Button/button";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 import "./PaginatedItems.scss";
 import saveToLocalInstance from "../../components/watchlist/watchlist-save-local";
 
 const PaginatedItems = (props: any) => {
+	const navigate = useNavigate();
+	const path = window.location.pathname;
 	const state = useSelector((state: any) => state);
 	const dispatch = useDispatch();
 	const { loading, error, champions, totalPages } =
 		state.champions;
 
+	const pageNumber = path.match(/\d+/g);
+	const page = pageNumber ? pageNumber[0] : 1;
+
 	useEffect(() => {
-		fetchApi(dispatch, 1, props.itemsPerPage);
+		fetchApi(
+			dispatch,
+			Number(page),
+			props.itemsPerPage
+		);
 	}, []);
 
 	const handlePageClick = (data: any) => {
@@ -26,6 +37,7 @@ const PaginatedItems = (props: any) => {
 			data.selected + 1,
 			props.itemsPerPage
 		);
+		navigate(`/${data.selected + 1}`);
 	};
 
 	return (

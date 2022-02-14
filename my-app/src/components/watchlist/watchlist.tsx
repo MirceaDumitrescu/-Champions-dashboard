@@ -8,9 +8,9 @@ const WatchList = () => {
 	const watchlist = useSelector(
 		(state: any) => state.watchlist
 	);
+	const localStorageData =
+		localStorage.getItem("watchList");
 	React.useEffect(() => {
-		const localStorageData =
-			localStorage.getItem("watchList");
 		if (localStorageData) {
 			dispatch(
 				dispatchLocalWatchlist(
@@ -18,7 +18,7 @@ const WatchList = () => {
 				)
 			);
 		}
-	}, []);
+	}, [localStorageData]);
 	return (
 		<>
 			{watchlist.champions ? (
