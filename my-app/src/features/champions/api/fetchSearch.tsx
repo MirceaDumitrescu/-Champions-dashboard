@@ -13,7 +13,7 @@ const fetchSearch = (dispatch: any, searchTerm: string) => {
 			);
 			const data = await response.json();
 			dispatch(fetchChampionsSuccess(data));
-		} catch (error) {
+		} catch (error: any) {
 			dispatch(fetchChampionsFailure(error));
 		}
 	};

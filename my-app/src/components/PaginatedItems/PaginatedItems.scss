@@ -2,6 +2,21 @@
 	text-align: center;
 }
 
+.save-to-watchlist {
+	position: relative;
+	color: rgb(97, 110, 120);
+	font-size: 12px;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	margin: 0;
+	&:hover {
+		color: rgb(21, 86, 133);
+	}
+}
+
 .pagination {
 	display: flex;
 	flex-wrap: wrap;
