@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 import "./PaginatedItems.scss";
-import saveToLocalInstance from "../../components/watchlist/watchlist-save-local";
+import saveToLocalInstance from "../../components/WatchList/watchlist-save-local";
 
 const PaginatedItems = (props: any) => {
 	const navigate = useNavigate();
@@ -81,7 +81,7 @@ const PaginatedItems = (props: any) => {
 									className="save-to-watchlist"
 									onClick={() =>
 										saveToLocalInstance(
-											champion.id,
+											champion,
 											dispatch
 										)
 									}

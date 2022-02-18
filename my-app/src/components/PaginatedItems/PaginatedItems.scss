@@ -1,7 +1,3 @@
-.paginatedItems-body {
-	text-align: center;
-}
-
 .save-to-watchlist {
 	position: relative;
 	color: rgb(97, 110, 120);
@@ -69,4 +65,5 @@
 	grid-gap: 1rem;
 	place-content: center;
 	place-items: center;
+	max-width: 650px;
 }

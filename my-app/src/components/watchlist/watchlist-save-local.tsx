@@ -2,7 +2,7 @@ import { dispatchLocalWatchlist } from "../../features/watchlistReducer/watchlis
 import { toast } from "react-toastify";
 
 const saveToLocalInstance = (
-	championId: number,
+	championPushed: any,
 	dispatch: any
 ) => {
 	const notify = () =>
@@ -26,11 +26,11 @@ const saveToLocalInstance = (
 		const championIndex =
 			localStorageChampions.findIndex(
 				(champion: any) =>
-					champion.id === championId
+					champion.id === championPushed.id
 			);
 		if (championIndex === -1) {
 			//champion is not in local storage
-			localStorageChampions.push({ id: championId });
+			localStorageChampions.push(championPushed);
 			localStorage.setItem(
 				"watchList",
 				JSON.stringify(localStorageChampions)
@@ -55,7 +55,7 @@ const saveToLocalInstance = (
 		}
 	} else {
 		//no local storage data
-		const localStorageChampions = [{ id: championId }];
+		const localStorageChampions = [championPushed];
 		localStorage.setItem(
 			"watchList",
 			JSON.stringify(localStorageChampions)
