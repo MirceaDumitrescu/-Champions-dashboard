@@ -1,0 +1,10 @@
+.champion-container {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+}
+
+.champion-name,
+.champion-image {
+	cursor: pointer;
+}

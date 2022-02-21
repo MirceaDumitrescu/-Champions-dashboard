@@ -6,18 +6,11 @@ import { Link } from "react-router-dom";
 
 const WatchList = () => {
 	const dispatch = useDispatch();
-	const watchlist = useSelector(
-		(state: any) => state.watchlist
-	);
-	const localStorageData =
-		localStorage.getItem("watchList");
+	const watchlist = useSelector((state: any) => state.watchlist);
+	const localStorageData = localStorage.getItem("watchList");
 	React.useEffect(() => {
 		if (localStorageData) {
-			dispatch(
-				dispatchLocalWatchlist(
-					JSON.parse(localStorageData)
-				)
-			);
+			dispatch(dispatchLocalWatchlist(JSON.parse(localStorageData)));
 		}
 	}, [localStorageData]);
 	return (
