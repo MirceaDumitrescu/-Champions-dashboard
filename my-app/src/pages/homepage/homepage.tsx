@@ -1,17 +1,21 @@
 import PaginatedItems from "../../components/PaginatedItems/PaginatedItems";
 import "./homepage.scss";
 import React from "react";
-import HeaderNavBar from "../../components/header/header";
+import HeaderNavBar from "../../components/Header/header";
 
 const HomePage = () => {
 	const [itemsPerPage, setItemsPerPage] =
 		React.useState(9);
 
 	return (
-		<div className="homepage-body">
+		<>
 			<HeaderNavBar />
-			<PaginatedItems itemsPerPage={itemsPerPage} />
-		</div>
+			<div className="homepage-body">
+				<PaginatedItems
+					itemsPerPage={itemsPerPage}
+				/>
+			</div>
+		</>
 	);
 };
 

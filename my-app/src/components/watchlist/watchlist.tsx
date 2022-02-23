@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { dispatchLocalWatchlist } from "../../features/watchlistReducer/watchlistState";
 import "./watchlist.scss";
+import { Link } from "react-router-dom";
 
 const WatchList = () => {
 	const dispatch = useDispatch();
@@ -23,10 +24,12 @@ const WatchList = () => {
 		<>
 			{watchlist.champions ? (
 				<div className="watchlist-icon">
-					<i className="fas fa-eye"></i>
-					<p className="watchlist-icon__text">
-						{watchlist.totalChampions}
-					</p>
+					<Link to="/watchlist">
+						<i className="fas fa-eye"></i>
+						<p className="watchlist-icon__text">
+							{watchlist.totalChampions}
+						</p>
+					</Link>
 				</div>
 			) : (
 				<div>Loading...</div>

@@ -1,6 +1,5 @@
 .watchlist-icon {
 	position: relative;
-	color: rgb(97, 110, 120);
 	font-size: 1.5rem;
 	border-radius: 50%;
 	width: 2.5rem;
@@ -10,15 +9,19 @@
 	align-items: center;
 	margin-right: 1rem;
 	cursor: pointer;
-	&:hover {
-		color: rgb(21, 86, 133);
-	}
 	&__text {
 		font-size: 14px;
 		font-weight: bold;
 		position: absolute;
 		right: 0;
 		bottom: 15%;
+	}
+}
+
+a {
+	color: rgb(21, 86, 133);
+	text-decoration: none;
+	&:hover {
 		color: rgb(21, 25, 133);
 	}
 }

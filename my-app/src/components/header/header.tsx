@@ -1,13 +1,17 @@
 import React from "react";
-import SearchBox from "../searchBox/searchbox";
-import WatchList from "../watchlist/watchlist";
+import SearchBox from "../SearchBox/searchbox";
+import WatchList from "../WatchList/watchlist";
 import { useDispatch } from "react-redux";
 import "./header.scss";
+import { Link } from "react-router-dom";
 
 const HeaderNavBar = () => {
 	const dispatch = useDispatch();
 	return (
 		<div className="header-navbar">
+			<div className="header-navbar-left">
+				<Link to="/">Home</Link>
+			</div>
 			<SearchBox dispatch={dispatch} />
 			<WatchList />
 		</div>
