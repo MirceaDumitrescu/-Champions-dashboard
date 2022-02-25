@@ -8,7 +8,7 @@ import FetchButton from "../../components/Button/button";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import ChampionModal from "../PopupModal/championModal";
+import ChampionModal from "../PopupModal";
 
 import "./PaginatedItems.scss";
 import saveToLocalInstance from "../../components/WatchList/watchlist-save-local";

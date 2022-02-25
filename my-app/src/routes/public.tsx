@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "../pages/homepage/homepage";
-import WatchListPage from "../pages/watchlistPage/watchlist_page";
+import HomePage from "../pages/homepage";
+import WatchListPage from "../pages/watchlistPage";
 
 const PublicRoutes = () => (
 	<Routes>

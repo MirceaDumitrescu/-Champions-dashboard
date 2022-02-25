@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { useSelector } from "react-redux";
 import "./championModal.scss";
+import Champion from "../../features/champions/types/champion";
 
 interface IChampionModalProps {
 	show: boolean;
@@ -19,11 +20,11 @@ const ChampionModal = (props: IChampionModalProps) => {
 
 	if (champions.length < 1) {
 		champion = localStorageState.find(
-			(champion: any) => champion.id === props.champion
+			(champion: Champion) => champion.id === props.champion
 		);
 	} else if (champions.length > 0) {
 		champion = champions.find(
-			(champion: any) => champion.id === props.champion
+			(champion: Champion) => champion.id === props.champion
 		);
 	}
 

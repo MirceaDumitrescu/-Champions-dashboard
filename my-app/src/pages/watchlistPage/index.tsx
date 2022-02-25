@@ -1,8 +1,9 @@
 import React from "react";
-import HeaderNavBar from "../../components/Header/header";
+import HeaderNavBar from "../../components/Header";
 import { useSelector } from "react-redux";
 import "./watchlist_page.scss";
-import ChampionModal from "../../components/PopupModal/championModal";
+import ChampionModal from "../../components/PopupModal";
+import Champion from "../../features/champions/types/champion";
 
 const WatchListPage = () => {
 	const champions = useSelector((state: any) => state.watchlist.champions);
@@ -22,7 +23,7 @@ const WatchListPage = () => {
 					{champions.length < 1 && <h1>No champions in watchlist</h1>}
 
 					{champions.length > 0 &&
-						champions.map((champion: any) => {
+						champions.map((champion: Champion) => {
 							return (
 								<div
 									className="watchlist-item"
