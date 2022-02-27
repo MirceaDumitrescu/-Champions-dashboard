@@ -28,10 +28,7 @@ const WatchListPage = () => {
 					{champions.length > 0 &&
 						champions.map((champion: Champion) => {
 							return (
-								<div
-									className="watchlist-item"
-									key={champion.id}
-								>
+								<div className="watchlist-item" key={champion.id}>
 									<h2
 										className="watchlist-item-name"
 										onClick={() => modalOpen(champion.id)}
@@ -42,19 +39,12 @@ const WatchListPage = () => {
 										<img
 											src={champion.image_url}
 											alt="champion"
-											onClick={() =>
-												modalOpen(champion.id)
-											}
+											onClick={() => modalOpen(champion.id)}
 										/>
 									</div>
 									<p
 										className="save-to-watchlist"
-										onClick={() =>
-											deleteLocalChampion(
-												champion,
-												dispatch
-											)
-										}
+										onClick={() => deleteLocalChampion(champion, dispatch)}
 									>
 										Remove From Watchlist
 									</p>

@@ -95,9 +95,7 @@ const PaginatedItems = (props: any) => {
 								/>
 								<p
 									className="save-to-watchlist"
-									onClick={() =>
-										saveToLocalInstance(champion, dispatch)
-									}
+									onClick={() => saveToLocalInstance(champion, dispatch)}
 								>
 									Save to Watchlist
 								</p>

@@ -1,7 +1,7 @@
 import { dispatchLocalWatchlist } from "../../features/watchlistReducer/watchlistState";
 import Champion from "../../features/champions/types/champion";
-import notifySucces from "../../components/Toast/succes.toast";
-import notifyError from "../../components/Toast/error.toast";
+import notifySucces from "../Toast/succes.toast";
+import notifyError from "../Toast/error.toast";
 
 const deleteLocalChampion = (championPushed: Champion, dispatch: any) => {
 	//check if champion is already in local storage
@@ -14,10 +14,7 @@ const deleteLocalChampion = (championPushed: Champion, dispatch: any) => {
 		if (championIndex !== -1) {
 			//champion is in local storage
 			localStorageChampions.splice(championIndex, 1);
-			localStorage.setItem(
-				"watchList",
-				JSON.stringify(localStorageChampions)
-			);
+			localStorage.setItem("watchList", JSON.stringify(localStorageChampions));
 			dispatch(dispatchLocalWatchlist(localStorageChampions));
 			notifySucces();
 		} else {

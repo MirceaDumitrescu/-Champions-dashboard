@@ -14,10 +14,7 @@ const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
 		if (championIndex === -1) {
 			//champion is not in local storage
 			localStorageChampions.push(championPushed);
-			localStorage.setItem(
-				"watchList",
-				JSON.stringify(localStorageChampions)
-			);
+			localStorage.setItem("watchList", JSON.stringify(localStorageChampions));
 			dispatch(dispatchLocalWatchlist(localStorageChampions));
 			notifySucces();
 		} else {
@@ -27,10 +24,7 @@ const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
 	} else {
 		//no local storage data
 		const localStorageChampions = [championPushed];
-		localStorage.setItem(
-			"watchList",
-			JSON.stringify(localStorageChampions)
-		);
+		localStorage.setItem("watchList", JSON.stringify(localStorageChampions));
 		dispatch(dispatchLocalWatchlist(localStorageChampions));
 		notifySucces();
 	}
