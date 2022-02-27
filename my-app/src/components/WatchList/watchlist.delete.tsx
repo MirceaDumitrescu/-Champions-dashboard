@@ -1,19 +1,9 @@
 import { dispatchLocalWatchlist } from "../../features/watchlistReducer/watchlistState";
-import { toast } from "react-toastify";
 import Champion from "../../features/champions/types/champion";
+import notifySucces from "../Toast/succes.toast";
+import notifyError from "../Toast/error.toast";
 
 const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
-	const notify = () =>
-		toast.success("Added to Watchlist", {
-			position: "top-right",
-			autoClose: 3000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-		});
-
 	//check if champion is already in local storage
 	const localStorageData = localStorage.getItem("watchList");
 	if (localStorageData) {
@@ -29,18 +19,10 @@ const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
 				JSON.stringify(localStorageChampions)
 			);
 			dispatch(dispatchLocalWatchlist(localStorageChampions));
-			notify();
+			notifySucces();
 		} else {
 			//champion is already in local storage
-			toast.error("Already in Watchlist", {
-				position: "top-right",
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-			});
+			notifyError();
 		}
 	} else {
 		//no local storage data
@@ -50,7 +32,7 @@ const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
 			JSON.stringify(localStorageChampions)
 		);
 		dispatch(dispatchLocalWatchlist(localStorageChampions));
-		notify();
+		notifySucces();
 	}
 };
 

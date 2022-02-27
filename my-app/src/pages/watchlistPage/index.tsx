@@ -1,11 +1,14 @@
 import React from "react";
 import HeaderNavBar from "../../components/Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./watchlist_page.scss";
 import ChampionModal from "../../components/PopupModal";
 import Champion from "../../features/champions/types/champion";
+import deleteLocalChampion from "../../components/WatchList/watchlist.save";
+import { ToastContainer } from "react-toastify";
 
 const WatchListPage = () => {
+	const dispatch = useDispatch();
 	const champions = useSelector((state: any) => state.watchlist.champions);
 	const [show, setShow] = React.useState(false);
 	const handleCloseModal = () => setShow(false);
@@ -44,7 +47,15 @@ const WatchListPage = () => {
 											}
 										/>
 									</div>
-									<p className="save-to-watchlist">
+									<p
+										className="save-to-watchlist"
+										onClick={() =>
+											deleteLocalChampion(
+												champion,
+												dispatch
+											)
+										}
+									>
 										Remove From Watchlist
 									</p>
 								</div>
@@ -56,6 +67,18 @@ const WatchListPage = () => {
 					champion={modalChampion}
 					onClose={handleCloseModal}
 				/>
+				<ToastContainer
+					position="top-right"
+					autoClose={3000}
+					hideProgressBar={true}
+					newestOnTop={false}
+					closeOnClick
+					rtl={false}
+					pauseOnFocusLoss
+					draggable
+					pauseOnHover
+				/>
+				<ToastContainer />
 			</div>
 		</div>
 	);

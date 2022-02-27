@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import ChampionModal from "../PopupModal";
 
 import "./PaginatedItems.scss";
-import saveToLocalInstance from "../../components/WatchList/watchlist-save-local";
+import saveToLocalInstance from "../WatchList/watchlist.delete";
 
 const PaginatedItems = (props: any) => {
 	const navigate = useNavigate();
