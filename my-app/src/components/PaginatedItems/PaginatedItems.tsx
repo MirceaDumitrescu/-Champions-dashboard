@@ -4,27 +4,51 @@ import { useSelector } from "react-redux";
 import fetchApi from "../../features/champions/api/fetchApi";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import FetchButton from "../../components/Button/button";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ChampionModal from "../PopupModal";
-
 import "./PaginatedItems.scss";
-import saveToLocalInstance from "../WatchList/watchlist.delete";
+import checkSaved from "../WatchList/WatchListCheckStatus";
+import Champion from "../../features/champions/types/champion";
 
 const PaginatedItems = (props: any) => {
 	const navigate = useNavigate();
 	const [show, setShow] = React.useState(false);
-
 	const [modalChampion, setModalChampion] = React.useState(0);
 	const path = window.location.pathname;
 	const state = useSelector((state: any) => state);
 	const dispatch = useDispatch();
 	const { loading, error, champions, totalPages } = state.champions;
-
 	const pageNumber = path.match(/\d+/g);
 	const page = pageNumber ? pageNumber[0] : 1;
+	const championsSort = [...champions];
+
+	const sortButtons = () => {
+		return (
+			<div className="sort-buttons">
+				<button className="sort-button">
+					<i className="fas fa-sort-amount-up" onClick={() => sort("ASC")}></i>
+				</button>
+				<button className="sort-button">
+					<i
+						className="fas fa-sort-amount-down"
+						onClick={() => sort("DESC")}
+					></i>
+				</button>
+			</div>
+		);
+	};
+
+	const sort = (order: string) => {
+		order === "ASC"
+			? championsSort.sort((a: Champion, b: Champion) =>
+					a.name > b.name ? -1 : b.name > a.name ? 1 : 0
+			  )
+			: championsSort.sort((a: Champion, b: Champion) =>
+					a.name > b.name ? 1 : b.name > a.name ? -1 : 0
+			  );
+	};
 
 	const handleCloseModal = () => {
 		setShow(false);
@@ -55,13 +79,7 @@ const PaginatedItems = (props: any) => {
 
 	return (
 		<div className="paginatedItems-body">
-			{/* <FetchButton
-				callback={fetchApi}
-				number={1}
-				size={10}
-				dispatch={dispatch}
-				text={"Fetch Champions"}
-			/> */}
+			{sortButtons()}
 			<ReactPaginate
 				breakLabel="..."
 				nextLabel="next >"
@@ -76,29 +94,24 @@ const PaginatedItems = (props: any) => {
 
 				{error && <div>Error: {error}</div>}
 
-				{champions &&
-					champions.map((champion: any) => {
+				{championsSort &&
+					championsSort.map((champion: any) => {
 						return (
-							<div key={champion.id}>
-								<h2
+							<div key={champion.id} className="champion-container">
+								<h4
 									onClick={() => modalOpen(champion.id)}
 									className="champion-name"
 								>
 									{champion.name}
-								</h2>
-
-								<img
-									src={champion.image_url}
-									alt={champion.name}
-									onClick={() => modalOpen(champion.id)}
-									className="champion-image"
-								/>
-								<p
-									className="save-to-watchlist"
-									onClick={() => saveToLocalInstance(champion, dispatch)}
-								>
-									Save to Watchlist
-								</p>
+								</h4>
+								<div className="champion-image">
+									<img
+										src={champion.image_url}
+										alt={champion.name}
+										onClick={() => modalOpen(champion.id)}
+									/>
+									{checkSaved(champion.id, champion, dispatch)}
+								</div>
 							</div>
 						);
 					})}

@@ -1,9 +1,9 @@
 import { dispatchLocalWatchlist } from "../../features/watchlistReducer/watchlistState";
 import Champion from "../../features/champions/types/champion";
-import notifySucces from "../Toast/succes.toast";
-import notifyError from "../Toast/error.toast";
+import { notifySuccesDelete } from "../Toast/ToastSucces";
+import { notifyErrorSave } from "../Toast/ToastError";
 
-const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
+const deleteLocalChampion = (championPushed: Champion, dispatch: any) => {
 	//check if champion is already in local storage
 	const localStorageData = localStorage.getItem("watchList");
 	if (localStorageData) {
@@ -11,23 +11,20 @@ const saveToLocalInstance = (championPushed: Champion, dispatch: any) => {
 		const championIndex = localStorageChampions.findIndex(
 			(champion: Champion) => champion.id === championPushed.id
 		);
-		if (championIndex === -1) {
-			//champion is not in local storage
-			localStorageChampions.push(championPushed);
+		if (championIndex !== -1) {
+			//champion is in local storage
+			localStorageChampions.splice(championIndex, 1);
 			localStorage.setItem("watchList", JSON.stringify(localStorageChampions));
 			dispatch(dispatchLocalWatchlist(localStorageChampions));
-			notifySucces();
+			notifySuccesDelete();
 		} else {
-			//champion is already in local storage
-			notifyError();
+			//champion is not in local storage
+			notifyErrorSave();
 		}
 	} else {
 		//no local storage data
-		const localStorageChampions = [championPushed];
-		localStorage.setItem("watchList", JSON.stringify(localStorageChampions));
-		dispatch(dispatchLocalWatchlist(localStorageChampions));
-		notifySucces();
+		notifyErrorSave();
 	}
 };
 
-export default saveToLocalInstance;
+export default deleteLocalChampion;

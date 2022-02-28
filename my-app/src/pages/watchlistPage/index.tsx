@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "./watchlist_page.scss";
 import ChampionModal from "../../components/PopupModal";
 import Champion from "../../features/champions/types/champion";
-import deleteLocalChampion from "../../components/WatchList/watchlist.save";
 import { ToastContainer } from "react-toastify";
+import checkSaved from "../../components/WatchList/WatchListCheckStatus";
 
 const WatchListPage = () => {
 	const dispatch = useDispatch();
@@ -35,19 +35,14 @@ const WatchListPage = () => {
 									>
 										{champion.name}
 									</h2>
-									<div className="watchlist-item-image">
+									<div className="champion-image">
 										<img
 											src={champion.image_url}
-											alt="champion"
+											alt={champion.name}
 											onClick={() => modalOpen(champion.id)}
 										/>
+										{checkSaved(champion.id, champion, dispatch)}
 									</div>
-									<p
-										className="save-to-watchlist"
-										onClick={() => deleteLocalChampion(champion, dispatch)}
-									>
-										Remove From Watchlist
-									</p>
 								</div>
 							);
 						})}
