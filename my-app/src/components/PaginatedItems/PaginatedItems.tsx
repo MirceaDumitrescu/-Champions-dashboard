@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ChampionModal from "../PopupModal";
 import "./PaginatedItems.scss";
-import checkSaved from "../WatchList/WatchListCheckStatus";
+import CheckSaved from "../WatchList/WatchListCheckStatus";
 import Champion from "../../features/champions/types/champion";
 
 const PaginatedItems = (props: any) => {
@@ -110,7 +110,7 @@ const PaginatedItems = (props: any) => {
 										alt={champion.name}
 										onClick={() => modalOpen(champion.id)}
 									/>
-									{checkSaved(champion.id, champion, dispatch)}
+									{CheckSaved(champion.id, champion, dispatch)}
 								</div>
 							</div>
 						);

@@ -1,20 +1,16 @@
-import {
-	fetchChampionsRequest,
-	fetchChampionsSuccess,
-	fetchChampionsFailure,
-} from "../getChampions";
+import { getRequest, getSuccess, getFailure } from "../getChampions";
 
 const fetchSearch = (dispatch: any, searchTerm: string) => {
-	dispatch(fetchChampionsRequest());
+	dispatch(getRequest());
 	const fetchChampions = async () => {
 		try {
 			const response = await fetch(
 				`https://api.pandascore.co/lol/champions?search[name]=${searchTerm}&token=eux4SlQq0iWLMKg5xZilceqXzmGTHCVMRyg3dikILwQVC1bZMCk`
 			);
 			const data = await response.json();
-			dispatch(fetchChampionsSuccess(data));
+			dispatch(getSuccess(data));
 		} catch (error: any) {
-			dispatch(fetchChampionsFailure(error));
+			dispatch(getFailure(error));
 		}
 	};
 	fetchChampions();

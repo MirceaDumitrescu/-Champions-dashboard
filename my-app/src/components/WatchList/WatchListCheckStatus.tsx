@@ -10,7 +10,7 @@ const checkId = (id: number) => {
 	return localStorageChampions.findIndex((champion: any) => champion.id === id);
 };
 
-const checkSaved = (id: number, champion: Champion, dispatch: any) => {
+const CheckSaved = (id: number, champion: Champion, dispatch: any) => {
 	if (checkId(id) === -1) {
 		return (
 			<i
@@ -30,4 +30,4 @@ const checkSaved = (id: number, champion: Champion, dispatch: any) => {
 	}
 };
 
-export default checkSaved;
+export default CheckSaved;

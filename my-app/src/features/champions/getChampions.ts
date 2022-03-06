@@ -1,7 +1,4 @@
-import {
-	createSlice,
-	PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
 	champions: any[];
@@ -21,38 +18,25 @@ const championsSlice = createSlice({
 	name: "champions",
 	initialState,
 	reducers: {
-		fetchChampionsRequest: (state) => {
+		getRequest: (state) => {
 			state.loading = true;
 			state.error = null;
 		},
-		fetchChampionsSuccess: (
-			state,
-			action: PayloadAction<any[]>
-		) => {
+		getSuccess: (state, action: PayloadAction<any[]>) => {
 			state.champions = action.payload;
 			state.loading = false;
 			state.error = null;
 		},
-		fetchTotalPages: (
-			state,
-			action: PayloadAction<number>
-		) => {
+		getTotalPages: (state, action: PayloadAction<number>) => {
 			state.totalPages = action.payload;
 		},
-		fetchChampionsFailure: (
-			state,
-			action: PayloadAction<string>
-		) => {
+		getFailure: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
 			state.loading = false;
 		},
 	},
 });
 
-export const {
-	fetchChampionsRequest,
-	fetchChampionsSuccess,
-	fetchChampionsFailure,
-	fetchTotalPages,
-} = championsSlice.actions;
+export const { getRequest, getSuccess, getTotalPages, getFailure } =
+	championsSlice.actions;
 export default championsSlice.reducer;

@@ -5,7 +5,7 @@ import "./watchlist_page.scss";
 import ChampionModal from "../../components/PopupModal";
 import Champion from "../../features/champions/types/champion";
 import { ToastContainer } from "react-toastify";
-import checkSaved from "../../components/WatchList/WatchListCheckStatus";
+import CheckSaved from "../../components/WatchList/WatchListCheckStatus";
 
 const WatchListPage = () => {
 	const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const WatchListPage = () => {
 											alt={champion.name}
 											onClick={() => modalOpen(champion.id)}
 										/>
-										{checkSaved(champion.id, champion, dispatch)}
+										{CheckSaved(champion.id, champion, dispatch)}
 									</div>
 								</div>
 							);

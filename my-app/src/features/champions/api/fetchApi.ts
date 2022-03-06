@@ -1,12 +1,12 @@
 import {
-	fetchChampionsRequest,
-	fetchChampionsSuccess,
-	fetchChampionsFailure,
-	fetchTotalPages,
+	getRequest,
+	getSuccess,
+	getFailure,
+	getTotalPages,
 } from "../getChampions";
 
 const fetchApi = (dispatch: any, number: number, size: number) => {
-	dispatch(fetchChampionsRequest());
+	dispatch(getRequest());
 	const TOKEN = "6ucNBrRntWW-irML8DD6DlULRZSPTHff5eq2u2_IOK1fnFyqWAE";
 	const fetchChampions = async () => {
 		try {
@@ -16,10 +16,10 @@ const fetchApi = (dispatch: any, number: number, size: number) => {
 			const data = await response.json();
 			const headers = response.headers;
 			const totalPages: string | null = headers.get("X-Total");
-			dispatch(fetchTotalPages(Number(totalPages)));
-			dispatch(fetchChampionsSuccess(data));
+			dispatch(getTotalPages(Number(totalPages)));
+			dispatch(getSuccess(data));
 		} catch (error: any) {
-			dispatch(fetchChampionsFailure(error));
+			dispatch(getFailure(error));
 		}
 	};
 	fetchChampions();
