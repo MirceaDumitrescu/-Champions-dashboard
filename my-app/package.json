@@ -18,6 +18,7 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.22",
     "dotenv": "^16.0.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",
     "react-dom": "^17.0.2",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@7urtle/lambda": "^1.4.1",
+    "@types/lodash": "^4.14.179",
     "react-router-dom": "^6.2.1"
   }
 }

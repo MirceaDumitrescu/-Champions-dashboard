@@ -34,9 +34,25 @@ const championsSlice = createSlice({
 			state.error = action.payload;
 			state.loading = false;
 		},
+		sortAscending: (state, action: PayloadAction<any[]>) => {
+			state.champions = action.payload.sort((a, b) =>
+				a.name.localeCompare(b.name)
+			);
+		},
+		sortDescending: (state, action: PayloadAction<any[]>) => {
+			state.champions = action.payload.sort((a, b) =>
+				b.name.localeCompare(a.name)
+			);
+		},
 	},
 });
 
-export const { getRequest, getSuccess, getTotalPages, getFailure } =
-	championsSlice.actions;
+export const {
+	getRequest,
+	getSuccess,
+	getTotalPages,
+	getFailure,
+	sortAscending,
+	sortDescending,
+} = championsSlice.actions;
 export default championsSlice.reducer;

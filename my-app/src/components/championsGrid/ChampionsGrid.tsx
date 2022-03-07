@@ -11,6 +11,10 @@ import ChampionModal from "../championModal";
 import "./championsGrid.scss";
 import CheckSaved from "../watchlist/checkStatus";
 import Champion from "../../features/champions/types/champion";
+import {
+	sortAscending,
+	sortDescending,
+} from "../../features/champions/getChampions";
 
 const PaginatedItems = (props: any) => {
 	const dispatch = useDispatch();
@@ -22,42 +26,24 @@ const PaginatedItems = (props: any) => {
 	const { loading, error, champions, totalPages } = reduxState;
 	const pageNumber = path.match(/\d+/g);
 	const page = pageNumber ? pageNumber[0] : 1;
-	const [championsSort, setChampionsSort] = React.useState<Champion[]>([
-		...champions,
-	]);
-
-	if (champions && champions.length > 0 && championsSort.length === 0) {
-		setChampionsSort(champions);
-	}
 
 	const sortButtons = () => {
 		return (
 			<div className="sort-buttons">
 				<button className="sort-button">
-					<i className="fas fa-sort-amount-up" onClick={() => sort("ASC")}></i>
+					<i
+						className="fas fa-sort-amount-up"
+						onClick={() => dispatch(sortAscending([...champions]))}
+					></i>
 				</button>
 				<button className="sort-button">
 					<i
 						className="fas fa-sort-amount-down"
-						onClick={() => sort("DESC")}
+						onClick={() => dispatch(sortDescending([...champions]))}
 					></i>
 				</button>
 			</div>
 		);
-	};
-
-	const sort = (order: string) => {
-		order === "ASC"
-			? setChampionsSort([
-					...championsSort.sort((a: Champion, b: Champion) => {
-						return a.armor > b.armor ? -1 : b.armor > a.armor ? 1 : 0;
-					}),
-			  ])
-			: setChampionsSort([
-					...championsSort.sort((a: Champion, b: Champion) => {
-						return a.armor > b.armor ? 1 : b.armor > a.armor ? -1 : 0;
-					}),
-			  ]);
 	};
 
 	const handleCloseModal = () => {
@@ -90,7 +76,6 @@ const PaginatedItems = (props: any) => {
 	const handlePageClick = (data: any) => {
 		fetchApi(dispatch, data.selected + 1, props.itemsPerPage);
 		navigate(`/${data.selected + 1}`);
-		setChampionsSort([...champions]);
 	};
 
 	return (
@@ -110,8 +95,8 @@ const PaginatedItems = (props: any) => {
 
 				{error && <div>Error: {error}</div>}
 
-				{championsSort &&
-					championsSort.map((champion: any) => {
+				{champions &&
+					champions.map((champion: any) => {
 						return (
 							<div key={champion.id} className="champion-container">
 								<h4

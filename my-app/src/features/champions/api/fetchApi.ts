@@ -9,6 +9,7 @@ const fetchApi = (dispatch: any, number: number, size: number) => {
 	dispatch(getRequest());
 	const TOKEN = "6ucNBrRntWW-irML8DD6DlULRZSPTHff5eq2u2_IOK1fnFyqWAE";
 	const fetchChampions = async () => {
+		console.log("🔥 Fetching champions...");
 		try {
 			const response = await fetch(
 				`https://api.pandascore.co/lol/champions?page[number]=${number}&page[size]=${size}&token=${TOKEN}`
