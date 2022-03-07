@@ -13,16 +13,22 @@ import CheckSaved from "../WatchList/WatchListCheckStatus";
 import Champion from "../../features/champions/types/champion";
 
 const PaginatedItems = (props: any) => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [show, setShow] = React.useState(false);
 	const [modalChampion, setModalChampion] = React.useState(0);
 	const path = window.location.pathname;
-	const state = useSelector((state: any) => state);
-	const dispatch = useDispatch();
-	const { loading, error, champions, totalPages } = state.champions;
+	const reduxState = useSelector((state: any) => state.champions);
+	const { loading, error, champions, totalPages } = reduxState;
 	const pageNumber = path.match(/\d+/g);
 	const page = pageNumber ? pageNumber[0] : 1;
-	const championsSort = [...champions];
+	const [championsSort, setChampionsSort] = React.useState<Champion[]>([
+		...champions,
+	]);
+
+	if (champions && champions.length > 0 && championsSort.length === 0) {
+		setChampionsSort(champions);
+	}
 
 	const sortButtons = () => {
 		return (
@@ -42,12 +48,16 @@ const PaginatedItems = (props: any) => {
 
 	const sort = (order: string) => {
 		order === "ASC"
-			? championsSort.sort((a: Champion, b: Champion) =>
-					a.name > b.name ? -1 : b.name > a.name ? 1 : 0
-			  )
-			: championsSort.sort((a: Champion, b: Champion) =>
-					a.name > b.name ? 1 : b.name > a.name ? -1 : 0
-			  );
+			? setChampionsSort([
+					...championsSort.sort((a: Champion, b: Champion) => {
+						return a.armor > b.armor ? -1 : b.armor > a.armor ? 1 : 0;
+					}),
+			  ])
+			: setChampionsSort([
+					...championsSort.sort((a: Champion, b: Champion) => {
+						return a.armor > b.armor ? 1 : b.armor > a.armor ? -1 : 0;
+					}),
+			  ]);
 	};
 
 	const handleCloseModal = () => {
@@ -63,18 +73,24 @@ const PaginatedItems = (props: any) => {
 
 	useEffect(() => {
 		fetchApi(dispatch, Number(page), props.itemsPerPage);
-		//check if link has id and page number
-		const url = window.location.href;
-		const urlId = url.match(/\d+/g);
-		if (urlId && urlId?.length > 2) {
-			setModalChampion(Number(urlId[2]));
-			setShow(true);
-		}
+
+		//check if link has id and page number. If it does, open modal with champion or go that specific page
+		const checkUrl = () => {
+			const url = window.location.href;
+			const urlId = url.match(/\d+/g);
+			if (urlId && urlId?.length > 2) {
+				setModalChampion(Number(urlId[2]));
+				setShow(true);
+			}
+		};
+
+		checkUrl();
 	}, []);
 
 	const handlePageClick = (data: any) => {
 		fetchApi(dispatch, data.selected + 1, props.itemsPerPage);
 		navigate(`/${data.selected + 1}`);
+		setChampionsSort([...champions]);
 	};
 
 	return (

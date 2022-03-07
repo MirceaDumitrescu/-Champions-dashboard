@@ -12,21 +12,29 @@ interface IChampionModalProps {
 
 const ChampionModal = (props: IChampionModalProps) => {
 	const state = useSelector((state: any) => state);
-	let champion;
+	const [champion, setChampion] = React.useState<Champion>();
 	const localStorageState = useSelector(
 		(state: any) => state.watchlist.champions
 	);
 	const { loading, error, champions, totalPages } = state.champions;
 
-	if (champions.length < 1) {
-		champion = localStorageState.find(
-			(champion: Champion) => champion.id === props.champion
-		);
-	} else if (champions.length > 0) {
-		champion = champions.find(
-			(champion: Champion) => champion.id === props.champion
-		);
-	}
+	const findChampion = () => {
+		let championSearch;
+		if (champions.length < 1) {
+			championSearch = localStorageState.find(
+				(champion: Champion) => champion.id === props.champion
+			);
+		} else if (champions.length > 0) {
+			championSearch = champions.find(
+				(champion: Champion) => champion.id === props.champion
+			);
+		}
+		setChampion(championSearch);
+	};
+
+	React.useEffect(() => {
+		findChampion();
+	}, [props.champion]);
 
 	return (
 		<Modal show={props.show} onHide={props.onClose} fullscreen={true}>
@@ -42,9 +50,7 @@ const ChampionModal = (props: IChampionModalProps) => {
 						<div className="champion-info">
 							<p>Champion Name: {champion.name}</p>
 							<p>Champion Armor: {champion.armor}</p>
-							<p>
-								Champion Attack Damage: {champion.attackdamage}
-							</p>
+							<p>Champion Attack Damage: {champion.attackdamage}</p>
 							<p>Champion HP: {champion.hp}</p>
 							<p>Champion ID: {champion.id}</p>
 							<p>Champion Move Speed: {champion.movespeed}</p>

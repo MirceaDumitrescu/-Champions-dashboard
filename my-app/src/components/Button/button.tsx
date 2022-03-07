@@ -5,13 +5,7 @@ const FetchButton = (props: any) => {
 		<>
 			<button
 				className="fetch-button"
-				onClick={() =>
-					props.callback(
-						props.dispatch,
-						props.number,
-						props.size
-					)
-				}
+				onClick={() => props.callback(props.dispatch, props.number, props.size)}
 			>
 				{props.text}
 			</button>
