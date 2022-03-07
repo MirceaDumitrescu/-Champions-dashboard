@@ -19,17 +19,17 @@ const ChampionModal = (props: IChampionModalProps) => {
 	const { loading, error, champions, totalPages } = state.champions;
 
 	const findChampion = () => {
-		let championSearch;
+		let foundChampion;
 		if (champions.length < 1) {
-			championSearch = localStorageState.find(
+			foundChampion = localStorageState.find(
 				(champion: Champion) => champion.id === props.champion
 			);
 		} else if (champions.length > 0) {
-			championSearch = champions.find(
+			foundChampion = champions.find(
 				(champion: Champion) => champion.id === props.champion
 			);
 		}
-		setChampion(championSearch);
+		setChampion(foundChampion);
 	};
 
 	React.useEffect(() => {

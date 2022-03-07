@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import ChampionModal from "../championModal";
 import "./championsGrid.scss";
 import CheckSaved from "../watchlist/checkStatus";
-import Champion from "../../features/champions/types/champion";
+import { useParams } from "react-router-dom";
 import {
 	sortAscending,
 	sortDescending,
@@ -19,13 +19,12 @@ import {
 const PaginatedItems = (props: any) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { id } = useParams();
+	const { page } = useParams();
 	const [show, setShow] = React.useState(false);
 	const [modalChampion, setModalChampion] = React.useState(0);
-	const path = window.location.pathname;
 	const reduxState = useSelector((state: any) => state.champions);
 	const { loading, error, champions, totalPages } = reduxState;
-	const pageNumber = path.match(/\d+/g);
-	const page = pageNumber ? pageNumber[0] : 1;
 
 	const sortButtons = () => {
 		return (
@@ -59,13 +58,9 @@ const PaginatedItems = (props: any) => {
 
 	useEffect(() => {
 		fetchApi(dispatch, Number(page), props.itemsPerPage);
-
-		//check if link has id and page number. If it does, open modal with champion or go that specific page
 		const checkUrl = () => {
-			const url = window.location.href;
-			const urlId = url.match(/\d+/g);
-			if (urlId && urlId?.length > 2) {
-				setModalChampion(Number(urlId[2]));
+			if (id && page) {
+				setModalChampion(Number(id));
 				setShow(true);
 			}
 		};
