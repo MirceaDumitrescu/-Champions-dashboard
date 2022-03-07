@@ -1,4 +1,4 @@
-import "./button.scss";
+import "./fetchButton.scss";
 
 const FetchButton = (props: any) => {
 	return (

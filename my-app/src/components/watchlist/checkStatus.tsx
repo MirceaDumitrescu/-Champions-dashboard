@@ -1,6 +1,6 @@
-import saveToLocalInstance from "./WatchlistDeleteChampion";
+import saveToLocalInstance from "./deleteChampion";
 import Champion from "../../features/champions/types/champion";
-import deleteLocalChampion from "./WatchListSaveChampion";
+import deleteLocalChampion from "./saveChampion";
 
 const checkId = (id: number) => {
 	const localStorageData = localStorage.getItem("watchList");

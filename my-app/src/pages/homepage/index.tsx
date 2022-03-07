@@ -1,7 +1,7 @@
-import PaginatedItems from "../../components/PaginatedItems/PaginatedItems";
+import PaginatedItems from "../../components/championsGrid/ChampionsGrid";
 import "./homepage.scss";
 import React from "react";
-import HeaderNavBar from "../../components/Header";
+import HeaderNavBar from "../../components/header";
 
 const HomePage = () => {
 	const [itemsPerPage, setItemsPerPage] = React.useState(9);

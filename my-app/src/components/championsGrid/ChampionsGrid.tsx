@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import ChampionModal from "../PopupModal";
-import "./PaginatedItems.scss";
-import CheckSaved from "../WatchList/WatchListCheckStatus";
+import ChampionModal from "../championModal";
+import "./championsGrid.scss";
+import CheckSaved from "../watchlist/checkStatus";
 import Champion from "../../features/champions/types/champion";
 
 const PaginatedItems = (props: any) => {
