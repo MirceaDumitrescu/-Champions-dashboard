@@ -1,22 +1,14 @@
-import saveToLocalInstance from "./deleteChampion";
+import saveChampion from "./saveChampion";
+import deleteChampion from "./deleteChampion";
 import Champion from "../../features/champions/types/champion";
-import deleteLocalChampion from "./saveChampion";
 
-const checkId = (id: number) => {
-	const localStorageData = localStorage.getItem("watchList");
-	const localStorageChampions = localStorageData
-		? JSON.parse(localStorageData)
-		: [];
-	return localStorageChampions.findIndex((champion: any) => champion.id === id);
-};
-
-const CheckSaved = (id: number, champion: Champion, dispatch: any) => {
-	if (checkId(id) === -1) {
+const CheckSaved = (isSaved: any, champion: Champion, dispatch: any) => {
+	if (isSaved === -1) {
 		return (
 			<i
 				className="fa-brands fa-gratipay"
 				id="unsaved"
-				onClick={() => saveToLocalInstance(champion, dispatch)}
+				onClick={() => saveChampion(champion, dispatch)}
 			></i>
 		);
 	} else {
@@ -24,7 +16,7 @@ const CheckSaved = (id: number, champion: Champion, dispatch: any) => {
 			<i
 				className="fa-brands fa-gratipay"
 				id="saved"
-				onClick={() => deleteLocalChampion(champion, dispatch)}
+				onClick={() => deleteChampion(champion, dispatch)}
 			></i>
 		);
 	}

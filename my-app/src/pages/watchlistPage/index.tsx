@@ -4,17 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import "./watchlistPage.scss";
 import ChampionModal from "../../components/championModal";
 import Champion from "../../features/champions/types/champion";
-import { ToastContainer } from "react-toastify";
 import CheckSaved from "../../components/watchlist/checkStatus";
+import ToastContainerComponent from "../../components/toasts/toastContainer";
 
 const WatchListPage = () => {
 	const dispatch = useDispatch();
 	const champions = useSelector((state: any) => state.watchlist.champions);
 	const [show, setShow] = React.useState(false);
 	const handleCloseModal = () => setShow(false);
-	const [modalChampion, setModalChampion] = React.useState(0);
-	const modalOpen = (el: any) => {
-		setModalChampion(el);
+	const [champion, setChampion] = React.useState<any>();
+	const modalOpen = (champion: Champion, championID: number) => {
+		setChampion(champion);
 		setShow(true);
 	};
 	return (
@@ -31,7 +31,7 @@ const WatchListPage = () => {
 								<div className="watchlist-item" key={champion.id}>
 									<h2
 										className="watchlist-item-name"
-										onClick={() => modalOpen(champion.id)}
+										onClick={() => modalOpen(champion, champion.id)}
 									>
 										{champion.name}
 									</h2>
@@ -39,7 +39,7 @@ const WatchListPage = () => {
 										<img
 											src={champion.image_url}
 											alt={champion.name}
-											onClick={() => modalOpen(champion.id)}
+											onClick={() => modalOpen(champion, champion.id)}
 										/>
 										{CheckSaved(champion.id, champion, dispatch)}
 									</div>
@@ -49,21 +49,11 @@ const WatchListPage = () => {
 				</div>
 				<ChampionModal
 					show={show}
-					champion={modalChampion}
+					champion={champion}
 					onClose={handleCloseModal}
 				/>
-				<ToastContainer
-					position="top-right"
-					autoClose={3000}
-					hideProgressBar={true}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-				/>
-				<ToastContainer />
+
+				<ToastContainerComponent />
 			</div>
 		</div>
 	);

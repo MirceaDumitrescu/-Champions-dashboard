@@ -1,46 +1,23 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { useSelector } from "react-redux";
 import "./championModal.scss";
 import Champion from "../../features/champions/types/champion";
+import { useParams } from "react-router-dom";
 
 interface IChampionModalProps {
 	show: boolean;
 	onClose: any;
-	champion: number;
+	champion: Champion;
 }
 
-const ChampionModal = (props: IChampionModalProps) => {
-	const state = useSelector((state: any) => state);
-	const [champion, setChampion] = React.useState<Champion>();
-	const localStorageState = useSelector(
-		(state: any) => state.watchlist.champions
-	);
-	const { loading, error, champions, totalPages } = state.champions;
+const ChampionModal = ({ show, onClose, champion }: IChampionModalProps) => {
+	const { championId } = useParams();
 
-	const findChampion = () => {
-		let foundChampion;
-		if (champions.length < 1) {
-			foundChampion = localStorageState.find(
-				(champion: Champion) => champion.id === props.champion
-			);
-		} else if (champions.length > 0) {
-			foundChampion = champions.find(
-				(champion: Champion) => champion.id === props.champion
-			);
-		}
-		setChampion(foundChampion);
-	};
-
-	React.useEffect(() => {
-		findChampion();
-	}, [props.champion]);
+	React.useEffect(() => {}, [championId, champion]);
 
 	return (
-		<Modal show={props.show} onHide={props.onClose} fullscreen={true}>
+		<Modal show={show} onHide={onClose} fullscreen={true}>
 			<Modal.Header closeButton>
-				{loading && <div>Loading...</div>}
-				{error && <div>Error: {error}</div>}
 				{champion && <Modal.Title>{champion.name}</Modal.Title>}
 			</Modal.Header>
 			{champion && (

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import fetchApi from "../../features/champions/api/fetchApi";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ChampionModal from "../championModal";
@@ -15,6 +14,8 @@ import {
 	sortAscending,
 	sortDescending,
 } from "../../features/champions/getChampions";
+import Champion from "../../features/champions/types/champion";
+import ToastContainerComponent from "../../components/toasts/toastContainer";
 
 const PaginatedItems = (props: any) => {
 	const dispatch = useDispatch();
@@ -22,9 +23,49 @@ const PaginatedItems = (props: any) => {
 	const { id } = useParams();
 	const { page } = useParams();
 	const [show, setShow] = React.useState(false);
-	const [modalChampion, setModalChampion] = React.useState(0);
+	const [champion, setChampion] = React.useState<any>();
 	const reduxState = useSelector((state: any) => state.champions);
+	const watchlistState = useSelector((state: any) => state.watchlist);
 	const { loading, error, champions, totalPages } = reduxState;
+
+	const handleCloseModal = () => {
+		setShow(false);
+		navigate(`/${page}`);
+	};
+
+	const handlePageClick = (data: any) => {
+		fetchApi(dispatch, data.selected + 1, props.itemsPerPage);
+		navigate(`/${data.selected + 1}`);
+	};
+
+	const modalOpen = (champion: Champion, championID: number) => {
+		setChampion(champion);
+		setShow(true);
+		navigate(`/${page}/${championID}`);
+	};
+
+	const checkUrl = () => {
+		if (id) {
+			setShow(true);
+			setChampion(
+				champions.find((champion: any) => champion.id === Number(id))
+			);
+		}
+	};
+
+	const isSaved = (championID: number) => {
+		return watchlistState.champions.findIndex(
+			(champion: any) => champion.id === championID
+		);
+	};
+
+	useEffect(() => {
+		fetchApi(dispatch, Number(page), props.itemsPerPage);
+	}, [id || page]);
+
+	useEffect(() => {
+		checkUrl();
+	}, [champions]);
 
 	const sortButtons = () => {
 		return (
@@ -43,34 +84,6 @@ const PaginatedItems = (props: any) => {
 				</button>
 			</div>
 		);
-	};
-
-	const handleCloseModal = () => {
-		setShow(false);
-		navigate(`/${page}`);
-	};
-
-	const modalOpen = (el: any) => {
-		setModalChampion(el);
-		setShow(true);
-		navigate(`/${page}/${el}`);
-	};
-
-	useEffect(() => {
-		fetchApi(dispatch, Number(page), props.itemsPerPage);
-		const checkUrl = () => {
-			if (id && page) {
-				setModalChampion(Number(id));
-				setShow(true);
-			}
-		};
-
-		checkUrl();
-	}, []);
-
-	const handlePageClick = (data: any) => {
-		fetchApi(dispatch, data.selected + 1, props.itemsPerPage);
-		navigate(`/${data.selected + 1}`);
 	};
 
 	return (
@@ -95,7 +108,7 @@ const PaginatedItems = (props: any) => {
 						return (
 							<div key={champion.id} className="champion-container">
 								<h4
-									onClick={() => modalOpen(champion.id)}
+									onClick={() => modalOpen(champion, champion.id)}
 									className="champion-name"
 								>
 									{champion.name}
@@ -104,28 +117,18 @@ const PaginatedItems = (props: any) => {
 									<img
 										src={champion.image_url}
 										alt={champion.name}
-										onClick={() => modalOpen(champion.id)}
+										onClick={() => modalOpen(champion, champion.id)}
 									/>
-									{CheckSaved(champion.id, champion, dispatch)}
+									{CheckSaved(isSaved(champion.id), champion, dispatch)}
 								</div>
 							</div>
 						);
 					})}
-				<ToastContainer
-					position="top-right"
-					autoClose={3000}
-					hideProgressBar={true}
-					newestOnTop={false}
-					closeOnClick
-					rtl={false}
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-				/>
-				<ToastContainer />
+
+				<ToastContainerComponent />
 				<ChampionModal
 					show={show}
-					champion={modalChampion}
+					champion={champion}
 					onClose={handleCloseModal}
 				/>
 			</div>
