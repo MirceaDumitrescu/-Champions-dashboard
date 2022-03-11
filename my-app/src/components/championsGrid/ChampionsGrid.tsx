@@ -17,16 +17,16 @@ import {
 import Champion from "../../features/champions/types/champion";
 import ToastContainerComponent from "../../components/toasts/toastContainer";
 
-const PaginatedItems = (props: any) => {
+const ChampionsGrid = (props: any) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { id } = useParams();
-	const { page } = useParams();
+	const { id, page } = useParams();
 	const [show, setShow] = React.useState(false);
 	const [champion, setChampion] = React.useState<any>();
-	const reduxState = useSelector((state: any) => state.champions);
 	const watchlistState = useSelector((state: any) => state.watchlist);
-	const { loading, error, champions, totalPages } = reduxState;
+	const { loading, error, champions, totalPages } = useSelector(
+		(state: any) => state.champions
+	);
 
 	const handleCloseModal = () => {
 		setShow(false);
@@ -73,13 +73,13 @@ const PaginatedItems = (props: any) => {
 				<button className="sort-button">
 					<i
 						className="fas fa-sort-amount-up"
-						onClick={() => dispatch(sortAscending([...champions]))}
+						onClick={() => dispatch(sortAscending())}
 					></i>
 				</button>
 				<button className="sort-button">
 					<i
 						className="fas fa-sort-amount-down"
-						onClick={() => dispatch(sortDescending([...champions]))}
+						onClick={() => dispatch(sortDescending())}
 					></i>
 				</button>
 			</div>
@@ -136,4 +136,4 @@ const PaginatedItems = (props: any) => {
 	);
 };
 
-export default PaginatedItems;
+export default ChampionsGrid;

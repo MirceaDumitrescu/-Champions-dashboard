@@ -34,13 +34,13 @@ const championsSlice = createSlice({
 			state.error = action.payload;
 			state.loading = false;
 		},
-		sortAscending: (state, action: PayloadAction<any[]>) => {
-			state.champions = action.payload.sort((a, b) =>
+		sortAscending: (state) => {
+			state.champions = [...state.champions].sort((a, b) =>
 				a.name.localeCompare(b.name)
 			);
 		},
-		sortDescending: (state, action: PayloadAction<any[]>) => {
-			state.champions = action.payload.sort((a, b) =>
+		sortDescending: (state) => {
+			state.champions = [...state.champions].sort((a, b) =>
 				b.name.localeCompare(a.name)
 			);
 		},

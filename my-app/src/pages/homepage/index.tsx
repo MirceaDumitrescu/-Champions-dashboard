@@ -1,4 +1,4 @@
-import PaginatedItems from "../../components/championsGrid/ChampionsGrid";
+import ChampionsGrid from "../../components/championsGrid/ChampionsGrid";
 import "./homepage.scss";
 import React from "react";
 import HeaderNavBar from "../../components/header";
@@ -10,7 +10,7 @@ const HomePage = () => {
 		<>
 			<HeaderNavBar />
 			<div className="homepage-body">
-				<PaginatedItems itemsPerPage={itemsPerPage} />
+				<ChampionsGrid itemsPerPage={itemsPerPage} />
 			</div>
 		</>
 	);
