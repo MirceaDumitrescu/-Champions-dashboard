@@ -19,9 +19,7 @@ const WatchList = () => {
 				<div className="watchlist-icon">
 					<Link to="/watchlist">
 						<i className="fas fa-eye"></i>
-						<p className="watchlist-icon__text">
-							{watchlist.totalChampions}
-						</p>
+						<p className="watchlist-icon__text">{watchlist.totalChampions}</p>
 					</Link>
 				</div>
 			) : (

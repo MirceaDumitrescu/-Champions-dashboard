@@ -1,17 +1,11 @@
-import "./button.scss";
+import "./fetchButton.scss";
 
 const FetchButton = (props: any) => {
 	return (
 		<>
 			<button
 				className="fetch-button"
-				onClick={() =>
-					props.callback(
-						props.dispatch,
-						props.number,
-						props.size
-					)
-				}
+				onClick={() => props.callback(props.dispatch, props.number, props.size)}
 			>
 				{props.text}
 			</button>

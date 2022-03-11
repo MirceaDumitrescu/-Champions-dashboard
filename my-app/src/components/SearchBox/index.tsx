@@ -1,22 +1,22 @@
-import React from "react";
 import fetchSearch from "../../features/champions/api/fetchSearch";
+import fetchApi from "../../features/champions/api/fetchApi";
 import "./searchbox.scss";
+import { debounce } from "lodash";
 
 const SearchBox = (props: any) => {
-	const [searchTerm, setSearchTerm] = React.useState("");
 	const handleSearch = (event: any) => {
-		setSearchTerm((prevState) => {
-			return event.target.value;
-		});
-		fetchSearch(props.dispatch, searchTerm);
+		event.target.value.length > 1
+			? fetchSearch(props.dispatch, event.target.value)
+			: fetchApi(props.dispatch, 1, 9);
 	};
+	const debouceSearch = debounce(handleSearch, 100);
 
 	return (
 		<>
 			<input
 				type="text"
 				placeholder="Search for a champion"
-				onChange={handleSearch}
+				onChange={debouceSearch}
 				className="search-box"
 			/>
 		</>

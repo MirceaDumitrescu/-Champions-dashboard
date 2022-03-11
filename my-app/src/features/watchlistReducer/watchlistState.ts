@@ -1,7 +1,4 @@
-import {
-	createSlice,
-	PayloadAction,
-} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IState {
 	champions: any[];
@@ -17,16 +14,12 @@ const watchlistSlice = createSlice({
 	name: "watchlist",
 	initialState,
 	reducers: {
-		dispatchLocalWatchlist: (
-			state,
-			action: PayloadAction<any[]>
-		) => {
+		dispatchLocalWatchlist: (state, action: PayloadAction<any[]>) => {
 			state.champions = action.payload;
 			state.totalChampions = action.payload.length;
 		},
 	},
 });
 
-export const { dispatchLocalWatchlist } =
-	watchlistSlice.actions;
+export const { dispatchLocalWatchlist } = watchlistSlice.actions;
 export default watchlistSlice.reducer;
