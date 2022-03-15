@@ -1,15 +1,21 @@
-import Homepage from "../";
+import Homepage from "..";
+import React from "react";
+import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../../../features/store";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
 
-//check if the component renders
-test("Homepage renders", () => {
-	render(<Homepage />);
-	//expect to find 9 champions on the page
-	const championContainer = screen.getByText("Home");
-	const inputField = screen.getByPlaceholderText("Search for a champion");
-	expect(championContainer).toBeInTheDocument();
-	expect(inputField).toBeInTheDocument();
+//test if the page renders correctly
+describe("With React testing library", () => {
+	it("renders without crashing", () => {
+		const { getByText } = render(
+			<Provider store={store}>
+				<MemoryRouter>
+					<Homepage />
+				</MemoryRouter>
+			</Provider>
+		);
+
+		expect(getByText("Home")).toBeInTheDocument();
+	});
 });
