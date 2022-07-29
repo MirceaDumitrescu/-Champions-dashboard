@@ -1,7 +1,7 @@
 import ChampionsGrid from "../../components/championsGrid/ChampionsGrid";
 import "./homepage.scss";
 import React from "react";
-import HeaderNavBar from "../../components/header";
+import HeaderNavBar from "../../components/Header";
 
 const HomePage = () => {
 	const [itemsPerPage, setItemsPerPage] = React.useState(9);

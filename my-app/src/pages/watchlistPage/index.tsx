@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderNavBar from "../../components/header";
+import HeaderNavBar from "../../components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import "./watchlistPage.scss";
 import ChampionModal from "../../components/championModal";
 import Champion from "../../features/champions/types/champion";
-import CheckSaved from "../../components/watchlist/checkStatus";
+import CheckSaved from "../../components/WatchList/checkStatus";
 import ToastContainerComponent from "../../components/toasts/toastContainer";
 
 const WatchListPage = () => {

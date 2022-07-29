@@ -1,6 +1,6 @@
 import React from "react";
-import SearchBox from "../searchBox";
-import WatchList from "../watchlist";
+import SearchBox from "../SearchBox";
+import WatchList from "../WatchList";
 import { useDispatch } from "react-redux";
 import "./header.scss";
 import { Link } from "react-router-dom";

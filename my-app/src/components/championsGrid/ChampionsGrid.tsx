@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import ChampionModal from "../championModal";
 import "./championsGrid.scss";
-import CheckSaved from "../watchlist/checkStatus";
+import CheckSaved from "../WatchList/checkStatus";
 import { useParams } from "react-router-dom";
 import {
 	sortAscending,
@@ -99,7 +99,7 @@ const ChampionsGrid = (props: any) => {
 				containerClassName="pagination"
 			/>
 			<div className="champions">
-				{loading && <div>Loading...</div>}
+				{loading && <div style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>Loading...</div>}
 
 				{error && <div>Error: {error}</div>}
 
